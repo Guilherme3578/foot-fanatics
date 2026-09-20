@@ -26,6 +26,22 @@ Java 21 · Spring Boot 3.x · Maven · PostgreSQL
 ./mvnw test
 ```
 
+## CI e validação
+
+Workflow GitHub Actions configurado em [.github/workflows/ci.yml](.github/workflows/ci.yml) com execução em `push` para `main` e em `pull_request`, usando Java 21 + Maven cache, `concurrency`, `timeout-minutes` e upload de relatórios Surefire/Failsafe com `if: always()`.
+
+Run IDs registrados:
+- Red: `35524224452` — falha intencional de asserção registrada para prova do ciclo vermelho
+- Green: aguardando confirmação do run final após push do estado restaurado
+
+Para proteger a `main` e exigir o check do workflow, o administrador do repositório pode usar:
+1. GitHub → Settings → Branches → Add branch protection rule
+2. Selecionar a branch `main`
+3. Ativar `Require a pull request before merging`
+4. Ativar `Require status checks to pass before merging`
+5. Selecionar o check `verify` (ou o nome do job exibido no PR)
+6. Salvar a regra
+
 ## Documentação
 
 - [docs/prd.md](docs/prd.md): visão, personas, escopos e requisitos
